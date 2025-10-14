@@ -11,62 +11,67 @@ export function DrugInfo({ drug }: DrugInfoProps) {
   const info = getDrugInfo(drug)
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Main Info Card */}
-      <Card className="p-6 bg-card/80 backdrop-blur-sm">
-        <div className="flex items-start gap-4 mb-6">
-          <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-primary/10 shrink-0">
-            <Info className="w-6 h-6 text-primary" />
+      <Card className="p-4 sm:p-6 bg-card/80 backdrop-blur-sm">
+        <div className="flex items-start gap-3 sm:gap-4 mb-4 sm:mb-6">
+          <div className="flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-primary/10 shrink-0">
+            <Info className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
           </div>
-          <div>
-            <h3 className="text-2xl font-bold mb-2 text-balance">{info.name}</h3>
-            <p className="text-muted-foreground leading-relaxed text-pretty">{info.description}</p>
+          <div className="min-w-0 flex-1">
+            <h3 className="text-xl sm:text-2xl font-bold mb-1 sm:mb-2 text-balance">{info.name}</h3>
+            <p className="text-sm sm:text-base text-muted-foreground leading-relaxed text-pretty">{info.description}</p>
           </div>
         </div>
 
-        <div className="space-y-4">
-          <div className="p-4 bg-secondary/50 rounded-lg">
-            <h4 className="font-semibold mb-2 flex items-center gap-2">
-              <Zap className="w-4 h-4 text-accent" />
+        <div className="space-y-3 sm:space-y-4">
+          <div className="p-3 sm:p-4 bg-secondary/50 rounded-lg">
+            <h4 className="font-semibold mb-2 flex items-center gap-2 text-sm sm:text-base">
+              <Zap className="w-4 h-4 text-accent shrink-0" />
               Componente Activo
             </h4>
-            <p className="text-sm text-muted-foreground leading-relaxed text-pretty">{info.activeComponent}</p>
+            <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed text-pretty">
+              {info.activeComponent}
+            </p>
           </div>
 
-          <div className="p-4 bg-secondary/50 rounded-lg">
-            <h4 className="font-semibold mb-2 flex items-center gap-2">
-              <Brain className="w-4 h-4 text-accent" />
+          <div className="p-3 sm:p-4 bg-secondary/50 rounded-lg">
+            <h4 className="font-semibold mb-2 flex items-center gap-2 text-sm sm:text-base">
+              <Brain className="w-4 h-4 text-accent shrink-0" />
               Mecanismo de Acción
             </h4>
-            <p className="text-sm text-muted-foreground leading-relaxed text-pretty">{info.mechanism}</p>
+            <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed text-pretty">{info.mechanism}</p>
           </div>
         </div>
       </Card>
 
+      {/* Image Card */}
       {info.imagePath && (
-        <Card className="p-6 bg-card/80 backdrop-blur-sm">
-          <h4 className="font-semibold mb-4 text-lg">Diagrama Científico</h4>
-          <div className="relative w-full aspect-video bg-secondary/30 rounded-lg overflow-hidden border border-border/50">
+        <Card className="p-4 sm:p-6 bg-card/80 backdrop-blur-sm">
+          <h4 className="font-semibold mb-3 sm:mb-4 text-base sm:text-lg">Diagrama Científico</h4>
+          <div className="relative w-full aspect-video sm:aspect-[4/3] bg-secondary/30 rounded-lg overflow-hidden border border-border/50">
             <Image
               src={info.imagePath || "/placeholder.svg"}
               alt={`Diagrama del mecanismo de acción de ${info.name}`}
               fill
-              className="object-contain p-4"
+              className="object-contain p-2 sm:p-4"
               priority
             />
           </div>
-          <p className="text-xs text-muted-foreground mt-3 text-center text-pretty">{info.imageCaption}</p>
+          <p className="text-[10px] sm:text-xs text-muted-foreground mt-2 sm:mt-3 text-center text-pretty">
+            {info.imageCaption}
+          </p>
         </Card>
       )}
 
       {/* Effects Card */}
-      <Card className="p-6 bg-card/80 backdrop-blur-sm">
-        <h4 className="font-semibold mb-4 text-lg">Efectos en el Organismo</h4>
-        <ul className="space-y-3">
+      <Card className="p-4 sm:p-6 bg-card/80 backdrop-blur-sm">
+        <h4 className="font-semibold mb-3 sm:mb-4 text-base sm:text-lg">Efectos en el Organismo</h4>
+        <ul className="space-y-2 sm:space-y-3">
           {info.effects.map((effect, index) => (
-            <li key={index} className="flex items-start gap-3">
-              <div className="w-2 h-2 rounded-full bg-accent mt-2 shrink-0" />
-              <span className="text-sm text-muted-foreground leading-relaxed text-pretty">{effect}</span>
+            <li key={index} className="flex items-start gap-2 sm:gap-3">
+              <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-accent mt-1.5 sm:mt-2 shrink-0" />
+              <span className="text-xs sm:text-sm text-muted-foreground leading-relaxed text-pretty">{effect}</span>
             </li>
           ))}
         </ul>
@@ -74,8 +79,8 @@ export function DrugInfo({ drug }: DrugInfoProps) {
 
       {/* Warning Alert */}
       <Alert className="border-destructive/50 bg-destructive/10">
-        <AlertTriangle className="h-4 w-4 text-destructive" />
-        <AlertDescription className="text-sm leading-relaxed text-pretty">
+        <AlertTriangle className="h-4 w-4 text-destructive shrink-0" />
+        <AlertDescription className="text-xs sm:text-sm leading-relaxed text-pretty">
           <span className="font-semibold text-destructive">Advertencia:</span> {info.warning}
         </AlertDescription>
       </Alert>

@@ -15,47 +15,50 @@ export function NeurotransmitterLevels({ drug }: NeurotransmitterLevelsProps) {
   const levels = getNeurotransmitterLevels(drug)
 
   return (
-    <div className="space-y-6">
-      <Card className="p-6 bg-card/80 backdrop-blur-sm">
-        <h3 className="text-xl font-semibold mb-4 text-balance">Niveles de Neurotransmisores</h3>
-        <p className="text-sm text-muted-foreground mb-6 leading-relaxed text-pretty">
+    <div className="space-y-4 sm:space-y-6">
+      <Card className="p-4 sm:p-6 bg-card/80 backdrop-blur-sm">
+        <h3 className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4 text-balance">Niveles de Neurotransmisores</h3>
+        <p className="text-xs sm:text-sm text-muted-foreground mb-4 sm:mb-6 leading-relaxed text-pretty">
           Comparación de los niveles de neurotransmisores en estado normal vs. bajo el efecto de {levels.drugName}.
         </p>
 
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
           {levels.neurotransmitters.map((nt, index) => (
-            <div key={index} className="space-y-3">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="w-3 h-3 rounded-full" style={{ backgroundColor: nt.color }} />
-                  <span className="font-medium">{nt.name}</span>
+            <div key={index} className="space-y-2 sm:space-y-3">
+              <div className="flex items-center justify-between gap-2">
+                <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
+                  <div
+                    className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full shrink-0"
+                    style={{ backgroundColor: nt.color }}
+                  />
+                  <span className="font-medium text-sm sm:text-base truncate">{nt.name}</span>
                 </div>
                 <Badge
                   variant={
                     nt.change === "increase" ? "default" : nt.change === "decrease" ? "destructive" : "secondary"
                   }
-                  className="gap-1"
+                  className="gap-1 text-xs shrink-0"
                 >
                   {nt.change === "increase" && <TrendingUp className="w-3 h-3" />}
                   {nt.change === "decrease" && <TrendingDown className="w-3 h-3" />}
                   {nt.change === "stable" && <Minus className="w-3 h-3" />}
-                  {nt.changeLabel}
+                  <span className="hidden sm:inline">{nt.changeLabel}</span>
                 </Badge>
               </div>
 
               <div className="space-y-2">
-                <div className="flex items-center justify-between text-xs text-muted-foreground">
+                <div className="flex items-center justify-between text-[10px] sm:text-xs text-muted-foreground">
                   <span>Normal</span>
                   <span>Con {levels.drugName}</span>
                 </div>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-2 sm:gap-4">
                   <div>
-                    <Progress value={50} className="h-2" />
+                    <Progress value={50} className="h-1.5 sm:h-2" />
                   </div>
                   <div>
                     <Progress
                       value={nt.level}
-                      className="h-2"
+                      className="h-1.5 sm:h-2"
                       style={
                         {
                           "--progress-background": nt.color,
@@ -66,19 +69,18 @@ export function NeurotransmitterLevels({ drug }: NeurotransmitterLevelsProps) {
                 </div>
               </div>
 
-              <p className="text-sm text-muted-foreground leading-relaxed text-pretty">{nt.description}</p>
+              <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed text-pretty">{nt.description}</p>
             </div>
           ))}
         </div>
       </Card>
 
-      {/* Effects Summary */}
-      <Card className="p-6 bg-gradient-to-br from-primary/5 to-accent/5 border-primary/20">
-        <h4 className="font-semibold mb-3 flex items-center gap-2">
-          <span className="text-lg">⚡</span>
+      <Card className="p-4 sm:p-6 bg-gradient-to-br from-primary/5 to-accent/5 border-primary/20">
+        <h4 className="font-semibold mb-2 sm:mb-3 flex items-center gap-2 text-base sm:text-lg">
+          <span className="text-lg sm:text-xl">⚡</span>
           Resumen de Efectos
         </h4>
-        <p className="text-sm text-muted-foreground leading-relaxed text-pretty">{levels.summary}</p>
+        <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed text-pretty">{levels.summary}</p>
       </Card>
     </div>
   )
